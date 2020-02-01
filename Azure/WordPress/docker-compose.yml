@@ -1,0 +1,28 @@
+version: '3.5'
+# This file is for Azure App Service on Linux.
+# Add "WORDPRESS_*" parameters and change "WEBSITES_ENABLE_APP_SERVICE_STORAGE" parameter to true in Application settings of your App Service.
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      # WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+      # WORDPRESS_AUTH_KEY: ${WORDPRESS_AUTH_KEY}
+      # WORDPRESS_SECURE_AUTH_KEY: ${WORDPRESS_SECURE_AUTH_KEY}
+      # WORDPRESS_LOGGED_IN_KEY: ${WORDPRESS_LOGGED_IN_KEY}
+      # WORDPRESS_NONCE_KEY: ${WORDPRESS_NONCE_KEY}
+      # WORDPRESS_AUTH_SALT: ${WORDPRESS_AUTH_SALT}
+      # WORDPRESS_SECURE_AUTH_SALT: ${WORDPRESS_SECURE_AUTH_SALT}
+      # WORDPRESS_LOGGED_IN_SALT: ${WORDPRESS_LOGGED_IN_SALT}
+      # WORDPRESS_NONCE_SALT: ${WORDPRESS_NONCE_SALT}
+      # WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);
+    volumes:
+      - "${WEBAPP_STORAGE_HOME}/site/wwwroot/wp-content:/var/www/html/wp-content"
