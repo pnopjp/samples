@@ -2,7 +2,6 @@ version: '3.5'
 # This file is for Azure App Service on Linux.
 # Add "PMA_HOSTS" parameters in Application settings of your App Service.
 # - PMA_HOSTS - define comma separated list of address/host names of the MySQL servers
-any value (such as HIDE_PHP_VERSION=true).
 services:
   wordpress:
     image: phpmyadmin/phpmyadmin
