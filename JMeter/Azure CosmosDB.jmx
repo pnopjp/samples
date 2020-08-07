@@ -57,18 +57,11 @@
       </ThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${request.body}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${cosmosdb.Host}</stringProp>
-          <stringProp name="HTTPSampler.port">443</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">${request.path}</stringProp>
@@ -102,7 +95,7 @@
             <boolProp name="UserParameters.per_iteration">false</boolProp>
           </UserParameters>
           <hashTree/>
-          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
+          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="Authorization Parameters" enabled="true">
             <collectionProp name="UserParameters.names">
               <stringProp name="1755781816">headers.x-ms-date</stringProp>
               <stringProp name="113873">sig</stringProp>
@@ -127,7 +120,7 @@ import java.util.Base64;
 
 Mac mac = Mac.getInstance(&quot;HmacSHA256&quot;);
 mac.init(new SecretKeySpec(Base64.getDecoder().decode(vars.get(&quot;cosmosdb.Key&quot;).getBytes()), &quot;HmacSHA256&quot;));
-vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).encodeBase64().toString());</stringProp>
+vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).encodeBase64().toString());</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
@@ -143,7 +136,7 @@ vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Authorization</stringProp>
-                <stringProp name="Header.value">${__urlencode(type=${cosmosdb.KeyType}&amp;ver=${cosmosdb.TokenVersion}&amp;sig=${headers.authorization})}</stringProp>
+                <stringProp name="Header.value">${__urlencode(type=${cosmosdb.KeyType}&amp;ver=${cosmosdb.TokenVersion}&amp;sig=${sig})}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
@@ -169,7 +162,7 @@ vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;
             </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${cosmosdb.Host}</stringProp>
-          <stringProp name="HTTPSampler.port">443</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">${request.path}</stringProp>
@@ -188,24 +181,24 @@ vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;
               <stringProp name="288506510">cosmosdb.ResourceType</stringProp>
               <stringProp name="288252750">cosmosdb.ResourceLink</stringProp>
               <stringProp name="1257892900">request.path</stringProp>
-              <stringProp name="1257488801">request.body</stringProp>
               <stringProp name="1867076896">request.method</stringProp>
               <stringProp name="-929509962">headers.Content-Type</stringProp>
+              <stringProp name="1257488801">request.body</stringProp>
             </collectionProp>
             <collectionProp name="UserParameters.thread_values">
-              <collectionProp name="309353686">
+              <collectionProp name="1188007936">
                 <stringProp name="3088955">docs</stringProp>
                 <stringProp name="-862779863">dbs/SampleDB/colls/Persons</stringProp>
                 <stringProp name="-1644652462">/dbs/SampleDB/colls/Persons/docs</stringProp>
-                <stringProp name="64377126">{&quot;query&quot;: &quot;SELECT * FROM c WHERE c.age = 23&quot;, &quot;parameters&quot;: []}</stringProp>
                 <stringProp name="2461856">POST</stringProp>
                 <stringProp name="1034968554">application/query+json</stringProp>
+                <stringProp name="64377126">{&quot;query&quot;: &quot;SELECT * FROM c WHERE c.age = 23&quot;, &quot;parameters&quot;: []}</stringProp>
               </collectionProp>
             </collectionProp>
             <boolProp name="UserParameters.per_iteration">false</boolProp>
           </UserParameters>
           <hashTree/>
-          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
+          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="Authorization Parameters" enabled="true">
             <collectionProp name="UserParameters.names">
               <stringProp name="1755781816">headers.x-ms-date</stringProp>
               <stringProp name="113873">sig</stringProp>
@@ -230,7 +223,7 @@ import java.util.Base64;
 
 Mac mac = Mac.getInstance(&quot;HmacSHA256&quot;);
 mac.init(new SecretKeySpec(Base64.getDecoder().decode(vars.get(&quot;cosmosdb.Key&quot;).getBytes()), &quot;HmacSHA256&quot;));
-vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).encodeBase64().toString());</stringProp>
+vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).encodeBase64().toString());</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
@@ -246,19 +239,19 @@ vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Authorization</stringProp>
-                <stringProp name="Header.value">${__urlencode(type=${cosmosdb.KeyType}&amp;ver=${cosmosdb.TokenVersion}&amp;sig=${headers.authorization})}</stringProp>
+                <stringProp name="Header.value">${__urlencode(type=${cosmosdb.KeyType}&amp;ver=${cosmosdb.TokenVersion}&amp;sig=${sig})}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
                 <stringProp name="Header.value">${headers.Content-Type}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
-                <stringProp name="Header.name">x-ms-documentdb-isquery</stringProp>
-                <stringProp name="Header.value">true</stringProp>
-              </elementProp>
-              <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">x-ms-max-item-count</stringProp>
                 <stringProp name="Header.value">-1</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">x-ms-documentdb-isquery</stringProp>
+                <stringProp name="Header.value">true</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">x-ms-documentdb-query-enablecrosspartition</stringProp>
@@ -268,44 +261,44 @@ vars.put(&quot;headers.authorization&quot;, mac.doFinal(vars.get(&quot;sig&quot;
           </HeaderManager>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
       </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
