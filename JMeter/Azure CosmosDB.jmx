@@ -16,22 +16,12 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="cosmosdb.Host" elementType="Argument">
             <stringProp name="Argument.name">cosmosdb.Host</stringProp>
-            <stringProp name="Argument.value">**********.documents.azure.com</stringProp>
+            <stringProp name="Argument.value">************.documents.azure.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="cosmosdb.Key" elementType="Argument">
             <stringProp name="Argument.name">cosmosdb.Key</stringProp>
-            <stringProp name="Argument.value">**************************************************************************************==</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="cosmosdb.KeyType" elementType="Argument">
-            <stringProp name="Argument.name">cosmosdb.KeyType</stringProp>
-            <stringProp name="Argument.value">master</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="cosmosdb.TokenVersion" elementType="Argument">
-            <stringProp name="Argument.name">cosmosdb.TokenVersion</stringProp>
-            <stringProp name="Argument.value">1.0</stringProp>
+            <stringProp name="Argument.value">************</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="headers.x-ms-version" elementType="Argument">
@@ -95,48 +85,15 @@
             <boolProp name="UserParameters.per_iteration">false</boolProp>
           </UserParameters>
           <hashTree/>
-          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="Authorization Parameters" enabled="true">
-            <collectionProp name="UserParameters.names">
-              <stringProp name="1755781816">headers.x-ms-date</stringProp>
-              <stringProp name="113873">sig</stringProp>
-            </collectionProp>
-            <collectionProp name="UserParameters.thread_values">
-              <collectionProp name="-1314711732">
-                <stringProp name="-1985000326">${__time(EEE\, dd MMM yyyy HH:mm:ss &apos;GMT&apos;, Now)}</stringProp>
-                <stringProp name="-554460324">${__lowercase(${request.method})}${__unescape(\n)}${cosmosdb.ResourceType}${__unescape(\n)}${cosmosdb.ResourceLink}${__unescape(\n)}${__lowercase(${__eval(${Now})})}${__unescape(\n)}${__unescape(\n)}</stringProp>
-              </collectionProp>
-            </collectionProp>
-            <boolProp name="UserParameters.per_iteration">false</boolProp>
-          </UserParameters>
-          <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="HmacSHA256" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.InvalidKeyException;
-import java.util.Base64;
-
-Mac mac = Mac.getInstance(&quot;HmacSHA256&quot;);
-mac.init(new SecretKeySpec(Base64.getDecoder().decode(vars.get(&quot;cosmosdb.Key&quot;).getBytes()), &quot;HmacSHA256&quot;));
-vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).encodeBase64().toString());</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223PreProcessor>
-          <hashTree/>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.name">x-ms-date</stringProp>
-                <stringProp name="Header.value">${headers.x-ms-date}</stringProp>
-              </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">x-ms-version</stringProp>
                 <stringProp name="Header.value">${headers.x-ms-version}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Authorization</stringProp>
-                <stringProp name="Header.value">${__urlencode(type=${cosmosdb.KeyType}&amp;ver=${cosmosdb.TokenVersion}&amp;sig=${sig})}</stringProp>
+                <stringProp name="Header.value">${__AzCosmosDbAuthZ(${cosmosdb.Key},headers.x-ms-date,${request.method},${cosmosdb.ResourceType},${cosmosdb.ResourceLink})}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
@@ -145,6 +102,10 @@ vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).enco
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">x-ms-max-item-count</stringProp>
                 <stringProp name="Header.value">-1</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">x-ms-date</stringProp>
+                <stringProp name="Header.value">${headers.x-ms-date}</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
@@ -198,48 +159,15 @@ vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).enco
             <boolProp name="UserParameters.per_iteration">false</boolProp>
           </UserParameters>
           <hashTree/>
-          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="Authorization Parameters" enabled="true">
-            <collectionProp name="UserParameters.names">
-              <stringProp name="1755781816">headers.x-ms-date</stringProp>
-              <stringProp name="113873">sig</stringProp>
-            </collectionProp>
-            <collectionProp name="UserParameters.thread_values">
-              <collectionProp name="-1314711732">
-                <stringProp name="-1985000326">${__time(EEE\, dd MMM yyyy HH:mm:ss &apos;GMT&apos;, Now)}</stringProp>
-                <stringProp name="-554460324">${__lowercase(${request.method})}${__unescape(\n)}${cosmosdb.ResourceType}${__unescape(\n)}${cosmosdb.ResourceLink}${__unescape(\n)}${__lowercase(${__eval(${Now})})}${__unescape(\n)}${__unescape(\n)}</stringProp>
-              </collectionProp>
-            </collectionProp>
-            <boolProp name="UserParameters.per_iteration">false</boolProp>
-          </UserParameters>
-          <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="HmacSHA256" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.InvalidKeyException;
-import java.util.Base64;
-
-Mac mac = Mac.getInstance(&quot;HmacSHA256&quot;);
-mac.init(new SecretKeySpec(Base64.getDecoder().decode(vars.get(&quot;cosmosdb.Key&quot;).getBytes()), &quot;HmacSHA256&quot;));
-vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).encodeBase64().toString());</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223PreProcessor>
-          <hashTree/>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.name">x-ms-date</stringProp>
-                <stringProp name="Header.value">${headers.x-ms-date}</stringProp>
-              </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">x-ms-version</stringProp>
                 <stringProp name="Header.value">${headers.x-ms-version}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Authorization</stringProp>
-                <stringProp name="Header.value">${__urlencode(type=${cosmosdb.KeyType}&amp;ver=${cosmosdb.TokenVersion}&amp;sig=${sig})}</stringProp>
+                <stringProp name="Header.value">${__AzCosmosDbAuthZ(${cosmosdb.Key},headers.x-ms-date,${request.method},${cosmosdb.ResourceType},${cosmosdb.ResourceLink})}</stringProp>
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
@@ -256,6 +184,10 @@ vars.put(&quot;sig&quot;, mac.doFinal(vars.get(&quot;sig&quot;).getBytes()).enco
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">x-ms-documentdb-query-enablecrosspartition</stringProp>
                 <stringProp name="Header.value">true</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">x-ms-date</stringProp>
+                <stringProp name="Header.value">${headers.x-ms-date}</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
